@@ -1,6 +1,6 @@
 ﻿namespace ProjetGsbE5
 {
-    partial class Search
+    partial class SearchForm
     {
         /// <summary>
         /// Required designer variable.

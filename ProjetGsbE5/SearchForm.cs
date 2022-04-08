@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace ProjetGsbE5
 {
-    public partial class Search : Form
+    public partial class SearchForm : Form
     {
         private String searchText;
 
-        public Search()
+        public SearchForm()
         {
             InitializeComponent();
         }

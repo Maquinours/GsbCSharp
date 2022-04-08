@@ -11,41 +11,22 @@ using Domain;
 
 namespace ProjetGsbE5
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        /// <summary>
+        /// Constructeur
+        /// </summary>
+        public MainForm()
         {
             InitializeComponent();
-            tab_control.TabPages.Remove(tab_praticiens);
+            Login();
         }
 
-        private void bt_cancel_Click(object sender, EventArgs e)
-        {
-            tb_login.ResetText();
-            tb_pwd.ResetText();
-        }
-
-        private void bt_connection_Click(object sender, EventArgs e)
-        {
-            visiteur visiteur = ConnectionService.getInstance().RechercheUnVisiteur(tb_login.Text);
-
-            if (visiteur != null && visiteur.pwd_visiteur.Equals(tb_pwd.Text))
-            {
-                MessageBox.Show("Connecté");
-                tab_control.TabPages.Add(tab_praticiens);
-                tab_control.SelectedTab = tab_praticiens;
-                tab_control.TabPages.Remove(tab_connection);
-            }
-            else
-                MessageBox.Show("Erreur d'authentification", "Login ou mot de passe incorrect");
-        }
-
+        #region Méthodes évènementielles 
         private void tab_control_Selected(object sender, TabControlEventArgs e)
         {
             if(e.TabPage == tab_praticiens)
             {
-                this.Width = 800;
-                this.Height = 600;
                 DataTable praticiens = PraticiensService.getInstance().GetPraticiens();
                 foreach(DataRow dr in praticiens.Rows)
                 {
@@ -60,7 +41,7 @@ namespace ProjetGsbE5
             {
                 if (e.KeyData == (Keys.Control | Keys.F))
                 {
-                    Search search = new Search();
+                    SearchForm search = new SearchForm();
                     if(search.ShowDialog() == DialogResult.OK)
                     {
                         foreach(DataGridViewRow dgvr in dgv_praticiens.Rows)
@@ -75,7 +56,31 @@ namespace ProjetGsbE5
                         }
                     }
                 }
+
+                if(e.KeyData == (Keys.Control | Keys.D))
+                {
+                    this.Hide();
+                    Login();
+                }
             }
         }
+        #endregion
+
+        #region Méthodes privées
+        private void Login()
+        {
+            LoginForm formLogin = new LoginForm();
+            DialogResult result = formLogin.ShowDialog();
+            switch (result)
+            {
+                case DialogResult.OK:
+                    MessageBox.Show("Connecté");
+                    break;
+                case DialogResult.Cancel:
+                    Application.Exit();
+                    break;
+            }
+        }
+        #endregion
     }
 }
