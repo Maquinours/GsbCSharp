@@ -65,6 +65,7 @@
             // 
             this.tb_pwd.Location = new System.Drawing.Point(162, 93);
             this.tb_pwd.Name = "tb_pwd";
+            this.tb_pwd.PasswordChar = '*';
             this.tb_pwd.Size = new System.Drawing.Size(100, 20);
             this.tb_pwd.TabIndex = 3;
             // 
@@ -89,10 +90,12 @@
             this.btn_cancel.UseVisualStyleBackColor = true;
             this.btn_cancel.Click += new System.EventHandler(this.btn_cancel_Click);
             // 
-            // FormLogin
+            // LoginForm
             // 
+            this.AcceptButton = this.btn_connection;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btn_cancel;
             this.ClientSize = new System.Drawing.Size(334, 181);
             this.Controls.Add(this.btn_cancel);
             this.Controls.Add(this.btn_connection);
@@ -101,7 +104,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
-            this.Name = "FormLogin";
+            this.Name = "LoginForm";
             this.Text = "Connexion";
             this.ResumeLayout(false);
             this.PerformLayout();

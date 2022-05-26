@@ -100,8 +100,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{0b3d20b0-fe64-4d85-bc5c-932ed01199c9}</Project>
+    <ProjectReference Include="..\Domain\Domain\Domain.csproj">
+      <Project>{7e68d244-b16e-4907-b6a8-6e49d6685e5f}</Project>
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
