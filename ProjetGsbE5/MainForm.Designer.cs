@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.dgv_praticiens = new System.Windows.Forms.DataGridView();
-            this.column_nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.column_prenom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.column_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.column_adresse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.column_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.column_prenom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.column_nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_praticiens)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,17 +67,11 @@
             this.dgv_praticiens.StandardTab = true;
             this.dgv_praticiens.TabIndex = 1;
             // 
-            // column_nom
+            // column_adresse
             // 
-            this.column_nom.HeaderText = "Nom";
-            this.column_nom.Name = "column_nom";
-            this.column_nom.ReadOnly = true;
-            // 
-            // column_prenom
-            // 
-            this.column_prenom.HeaderText = "Prénom";
-            this.column_prenom.Name = "column_prenom";
-            this.column_prenom.ReadOnly = true;
+            this.column_adresse.HeaderText = "Adresse";
+            this.column_adresse.Name = "column_adresse";
+            this.column_adresse.ReadOnly = true;
             // 
             // column_type
             // 
@@ -85,11 +79,17 @@
             this.column_type.Name = "column_type";
             this.column_type.ReadOnly = true;
             // 
-            // column_adresse
+            // column_prenom
             // 
-            this.column_adresse.HeaderText = "Adresse";
-            this.column_adresse.Name = "column_adresse";
-            this.column_adresse.ReadOnly = true;
+            this.column_prenom.HeaderText = "Prénom";
+            this.column_prenom.Name = "column_prenom";
+            this.column_prenom.ReadOnly = true;
+            // 
+            // column_nom
+            // 
+            this.column_nom.HeaderText = "Nom";
+            this.column_nom.Name = "column_nom";
+            this.column_nom.ReadOnly = true;
             // 
             // MainForm
             // 
