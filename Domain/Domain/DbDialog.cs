@@ -16,38 +16,33 @@ namespace Domain
         /// <returns>mot de passe et sel d'un visiteur</returns>
         public static DataTable GetVisiteur(string login)
         {
-            DbDialog._conn.Open();
-
             DataTable dt = new DataTable();
-
             DataColumn[] cols =
             {
                 new DataColumn("pwd", typeof(string)),
                 new DataColumn("pwd_salt", typeof(string))
             };
-
             dt.Columns.AddRange(cols);
 
             string sql = "SELECT pwd_visiteur_sha256, sha_256_salt FROM visiteur WHERE login_visiteur = @login";
-
-            MySqlCommand cmd = new MySqlCommand(sql, DbDialog._conn);
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
             cmd.Parameters.AddWithValue("@login", login);
+            cmd.Prepare();
 
             try
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
                 if (!reader.HasRows) throw new Exception("Aucun résultat");
                 reader.Read();
-
                 dt.Rows.Add(reader.GetString(reader.GetOrdinal("pwd_visiteur_sha256")), reader.GetString(reader.GetOrdinal("sha_256_salt")));
 
-                reader.Close();
-                DbDialog._conn.Close();
+                _conn.Close();
                 return dt;
             }
             catch
             {
-                DbDialog._conn.Close();
+                _conn.Close();
                 throw;
             }
         }
@@ -58,9 +53,7 @@ namespace Domain
         /// <returns>informations de chaque visi</returns>
         public static DataTable GetPraticiens()
         {
-            DbDialog._conn.Open();
             DataTable dt = new DataTable();
-
             DataColumn[] cols =
             {
                 new DataColumn("id", typeof(long)),
@@ -69,18 +62,15 @@ namespace Domain
                 new DataColumn("type", typeof(long)),
                 new DataColumn("adresse", typeof(string))
             };
-
             dt.Columns.AddRange(cols);
 
             string sql = "SELECT * FROM praticien";
-
-            MySqlCommand cmd = new MySqlCommand(sql, DbDialog._conn);
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
 
             try
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
-
-                if (!reader.HasRows) throw new Exception("Aucun résultat");
                 while (reader.Read())
                 {
                     dt.Rows.Add(
@@ -91,12 +81,13 @@ namespace Domain
                         reader.GetString(reader.GetOrdinal("adresse_praticien")) + ", " + reader.GetString(reader.GetOrdinal("cp_praticien")) + " " + reader.GetString(reader.GetOrdinal("ville_praticien"))
                         );
                 }
-                DbDialog._conn.Close();
+
+                _conn.Close();
                 return dt;
             }
             catch
             {
-                DbDialog._conn.Close();
+                _conn.Close();
                 throw;
             }
         }
@@ -105,29 +96,118 @@ namespace Domain
         {
             Dictionary<long, string> ret = new Dictionary<long, string>();
 
-            DbDialog._conn.Open();
-
             string sql = "SELECT id_type_praticien, lib_type_praticien FROM type_praticien";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
 
-            MySqlCommand cmd = new MySqlCommand(sql, DbDialog._conn);
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    ret.Add(reader.GetInt64(reader.GetOrdinal("id_type_praticien")), reader.GetString(reader.GetOrdinal("lib_type_praticien")));
+                }
+
+                _conn.Close();
+                return ret;
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
+        public static DataTable GetSpecialitesPraticien(long idPraticien)
+        {
+            DataTable dt = new DataTable();
+            DataColumn[] cols =
+            {
+                new DataColumn("id_specialite", typeof(long)),
+                new DataColumn("lib_specialite", typeof (string)),
+                new DataColumn("diplome", typeof(string)),
+                new DataColumn("coef_prescription", typeof(decimal))
+            };
+            dt.Columns.AddRange(cols);
+
+            string sql = "SELECT * FROM specialite S JOIN posseder P ON S.id_specialite=P.id_specialite WHERE P.id_praticien=@id";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@id", idPraticien);
+            cmd.Prepare();
 
             try
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
 
-                if (!reader.HasRows) throw new Exception("Aucun résultat");
-                while (reader.Read())
+                while(reader.Read())
                 {
-                    ret.Add(reader.GetInt64(reader.GetOrdinal("id_type_praticien")), reader.GetString(reader.GetOrdinal("lib_type_praticien")));
+                    dt.Rows.Add(
+                        reader.GetInt64(reader.GetOrdinal("id_specialite")),
+                        reader.GetString(reader.GetOrdinal("lib_specialite")),
+                        reader.GetString(reader.GetOrdinal("diplome")),
+                        reader.GetDecimal(reader.GetOrdinal("coef_prescription"))
+                        );
                 }
-                DbDialog._conn.Close();
-                return ret;
+
+                _conn.Close();
+                return dt;
             }
-            catch
+            catch 
             {
-                DbDialog._conn.Close();
-                throw;
+                _conn.Close();
+                throw; 
             }
+        }
+
+        public static void InsertPosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
+        {
+            string sql = "INSERT INTO posseder(id_praticien, id_specialite, diplome, coef_prescription) "
+                + "VALUES(@praticien, @specialite, @diplome, @coef_prescription";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Parameters.AddWithValue("@specialite", idSpecialite);
+            cmd.Parameters.AddWithValue("@diplome", diplome);
+            cmd.Parameters.AddWithValue("@coef_prescription", coefPrescription);
+            cmd.Prepare();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            } catch { throw; }
+        }
+
+        public static void UpdatePosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
+        {
+            string sql = "UPDATE posseder SET diplome=@diplome, coef_prescription=@coef_prescription WHERE id_praticien=@praticien AND id_specialite=@specialite";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@diplome", diplome);
+            cmd.Parameters.AddWithValue("@coef_prescription", coefPrescription);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Parameters.AddWithValue("@specialite", idSpecialite);
+            cmd.Prepare();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            } catch { throw; }
+        }
+
+        public static void DeletePosseder(long idPraticien, long idSpecialite)
+        {
+            string sql = "DELETE FROM posseder WHERE id_praticien=@praticien AND id_specialite=@specialite";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Parameters.AddWithValue("@specialite", idSpecialite);
+            cmd.Prepare();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+            } catch { throw; }
         }
     }
 }

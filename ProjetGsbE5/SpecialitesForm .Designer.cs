@@ -28,27 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Specialite = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_specialite = new System.Windows.Forms.DataGridView();
             this.bt_ajouter = new System.Windows.Forms.Button();
             this.bt_modifier = new System.Windows.Forms.Button();
             this.bt_supprimer = new System.Windows.Forms.Button();
+            this.cln_idspecialite = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_libspecialite = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_diplome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_coefprescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_specialite)).BeginInit();
             this.SuspendLayout();
             // 
-            // Specialite
-            // 
-            this.Specialite.HeaderText = "Spécialités";
-            this.Specialite.Name = "Specialite";
-            // 
             // dgv_specialite
             // 
+            this.dgv_specialite.AllowUserToAddRows = false;
+            this.dgv_specialite.AllowUserToDeleteRows = false;
+            this.dgv_specialite.AllowUserToResizeColumns = false;
+            this.dgv_specialite.AllowUserToResizeRows = false;
             this.dgv_specialite.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_specialite.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgv_specialite.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_specialite.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_specialite.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_specialite.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Specialite});
+            this.cln_idspecialite,
+            this.cln_libspecialite,
+            this.cln_diplome,
+            this.cln_coefprescription});
             this.dgv_specialite.Location = new System.Drawing.Point(12, 12);
             this.dgv_specialite.Name = "dgv_specialite";
+            this.dgv_specialite.ReadOnly = true;
             this.dgv_specialite.RowHeadersVisible = false;
             this.dgv_specialite.Size = new System.Drawing.Size(240, 426);
             this.dgv_specialite.TabIndex = 0;
@@ -80,6 +97,31 @@
             this.bt_supprimer.Text = "Supprimer";
             this.bt_supprimer.UseVisualStyleBackColor = true;
             // 
+            // cln_idspecialite
+            // 
+            this.cln_idspecialite.HeaderText = "Id";
+            this.cln_idspecialite.Name = "cln_idspecialite";
+            this.cln_idspecialite.ReadOnly = true;
+            this.cln_idspecialite.Visible = false;
+            // 
+            // cln_libspecialite
+            // 
+            this.cln_libspecialite.HeaderText = "Libellé";
+            this.cln_libspecialite.Name = "cln_libspecialite";
+            this.cln_libspecialite.ReadOnly = true;
+            // 
+            // cln_diplome
+            // 
+            this.cln_diplome.HeaderText = "Diplôme";
+            this.cln_diplome.Name = "cln_diplome";
+            this.cln_diplome.ReadOnly = true;
+            // 
+            // cln_coefprescription
+            // 
+            this.cln_coefprescription.HeaderText = "Coef. Prescription";
+            this.cln_coefprescription.Name = "cln_coefprescription";
+            this.cln_coefprescription.ReadOnly = true;
+            // 
             // SpecialitesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -97,11 +139,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridViewTextBoxColumn Specialite;
         private System.Windows.Forms.DataGridView dgv_specialite;
         private System.Windows.Forms.Button bt_ajouter;
         private System.Windows.Forms.Button bt_modifier;
         private System.Windows.Forms.Button bt_supprimer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_idspecialite;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_libspecialite;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_diplome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_coefprescription;
     }
 }

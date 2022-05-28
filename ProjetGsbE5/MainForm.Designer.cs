@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_praticiens = new System.Windows.Forms.DataGridView();
-            this.column_adresse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.column_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.column_prenom = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.column_nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_nom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_prenom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_adresse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cln_specialites = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cln_invitations = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_praticiens)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,12 +50,23 @@
             this.dgv_praticiens.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_praticiens.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_praticiens.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_praticiens.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_praticiens.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_praticiens.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.column_nom,
-            this.column_prenom,
-            this.column_type,
-            this.column_adresse});
+            this.cln_id,
+            this.cln_nom,
+            this.cln_prenom,
+            this.cln_type,
+            this.cln_adresse,
+            this.cln_specialites,
+            this.cln_invitations});
             this.dgv_praticiens.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_praticiens.Location = new System.Drawing.Point(0, 0);
             this.dgv_praticiens.Name = "dgv_praticiens";
@@ -66,30 +81,55 @@
             this.dgv_praticiens.Size = new System.Drawing.Size(784, 561);
             this.dgv_praticiens.StandardTab = true;
             this.dgv_praticiens.TabIndex = 1;
+            this.dgv_praticiens.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_praticiens_CellContentClick);
             // 
-            // column_adresse
+            // cln_id
             // 
-            this.column_adresse.HeaderText = "Adresse";
-            this.column_adresse.Name = "column_adresse";
-            this.column_adresse.ReadOnly = true;
+            this.cln_id.HeaderText = "Id";
+            this.cln_id.Name = "cln_id";
+            this.cln_id.ReadOnly = true;
+            this.cln_id.Visible = false;
             // 
-            // column_type
+            // cln_nom
             // 
-            this.column_type.HeaderText = "Type";
-            this.column_type.Name = "column_type";
-            this.column_type.ReadOnly = true;
+            this.cln_nom.HeaderText = "Nom";
+            this.cln_nom.Name = "cln_nom";
+            this.cln_nom.ReadOnly = true;
             // 
-            // column_prenom
+            // cln_prenom
             // 
-            this.column_prenom.HeaderText = "Prénom";
-            this.column_prenom.Name = "column_prenom";
-            this.column_prenom.ReadOnly = true;
+            this.cln_prenom.HeaderText = "Prénom";
+            this.cln_prenom.Name = "cln_prenom";
+            this.cln_prenom.ReadOnly = true;
             // 
-            // column_nom
+            // cln_type
             // 
-            this.column_nom.HeaderText = "Nom";
-            this.column_nom.Name = "column_nom";
-            this.column_nom.ReadOnly = true;
+            this.cln_type.HeaderText = "Type";
+            this.cln_type.Name = "cln_type";
+            this.cln_type.ReadOnly = true;
+            // 
+            // cln_adresse
+            // 
+            this.cln_adresse.HeaderText = "Adresse";
+            this.cln_adresse.Name = "cln_adresse";
+            this.cln_adresse.ReadOnly = true;
+            // 
+            // cln_specialites
+            // 
+            this.cln_specialites.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cln_specialites.HeaderText = "Spécialités";
+            this.cln_specialites.Name = "cln_specialites";
+            this.cln_specialites.ReadOnly = true;
+            this.cln_specialites.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cln_specialites.Width = 64;
+            // 
+            // cln_invitations
+            // 
+            this.cln_invitations.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cln_invitations.HeaderText = "Invitations";
+            this.cln_invitations.Name = "cln_invitations";
+            this.cln_invitations.ReadOnly = true;
+            this.cln_invitations.Width = 61;
             // 
             // MainForm
             // 
@@ -109,10 +149,13 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgv_praticiens;
-        private System.Windows.Forms.DataGridViewTextBoxColumn column_nom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn column_prenom;
-        private System.Windows.Forms.DataGridViewTextBoxColumn column_type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn column_adresse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_nom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_prenom;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cln_adresse;
+        private System.Windows.Forms.DataGridViewButtonColumn cln_specialites;
+        private System.Windows.Forms.DataGridViewButtonColumn cln_invitations;
     }
 }
 

@@ -28,7 +28,7 @@ namespace ProjetGsbE5
                 {
                     foreach (DataGridViewRow dgvr in dgv_praticiens.Rows)
                     {
-                        if (dgvr.Cells[column_nom.Index].Value.ToString().ToLower().Contains(search.SearchText.ToLower()))
+                        if (dgvr.Cells[cln_nom.Index].Value.ToString().ToLower().Contains(search.SearchText.ToLower()))
                         {
                             dgvr.Visible = true;
                         }
@@ -66,12 +66,24 @@ namespace ProjetGsbE5
         private void LoadPraticiens()
         {
             Dictionary<long, string> praticienTypes = DbDialog.GetTypesPraticiens();
-            DataTable praticiens = DbDialog.GetPraticiens();
-            foreach (DataRow dr in praticiens.Rows)
+            foreach (DataRow dr in DbDialog.GetPraticiens().Rows)
             {
-                dgv_praticiens.Rows.Add(dr["nom"], dr["prenom"], praticienTypes[(long)dr["type"]], dr["adresse"]);
+                dgv_praticiens.Rows.Add(dr["id"], dr["nom"], dr["prenom"], praticienTypes[(long)dr["type"]], dr["adresse"]);
             }
         }
         #endregion
+
+        private void dgv_praticiens_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.ColumnIndex == cln_specialites.Index)
+            {
+                SpecialitesForm formSpecialites = new SpecialitesForm(
+                    (long)dgv_praticiens.Rows[e.RowIndex].Cells[cln_id.Index].Value,
+                    (string)dgv_praticiens.Rows[e.RowIndex].Cells[cln_prenom.Index].Value,
+                    (string)dgv_praticiens.Rows[e.RowIndex].Cells[cln_nom.Index].Value
+                    );
+                formSpecialites.ShowDialog();
+            }
+        }
     }
 }
