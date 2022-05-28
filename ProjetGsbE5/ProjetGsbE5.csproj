@@ -47,6 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivitesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ActivitesForm.Designer.cs">
+      <DependentUpon>ActivitesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AjouterModifierActiviteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AjouterModifierActiviteForm.Designer.cs">
+      <DependentUpon>AjouterModifierActiviteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AjouterModifierSpecialiteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AjouterModifierSpecialiteForm.Designer.cs">
+      <DependentUpon>AjouterModifierSpecialiteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +91,15 @@
     <Compile Include="SpecialitesForm .Designer.cs">
       <DependentUpon>SpecialitesForm .cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ActivitesForm.resx">
+      <DependentUpon>ActivitesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AjouterModifierActiviteForm.resx">
+      <DependentUpon>AjouterModifierActiviteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AjouterModifierSpecialiteForm.resx">
+      <DependentUpon>AjouterModifierSpecialiteForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
