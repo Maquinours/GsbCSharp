@@ -92,3 +92,6 @@ C:\Users\Red\Source\Repos\GsbCSharp\ProjetGsbE5\obj\Debug\ProjetGsbE5.csproj.Cop
 C:\Users\Red\Source\Repos\GsbCSharp\ProjetGsbE5\obj\Debug\ProjetGsbE5.exe
 C:\Users\Red\Source\Repos\GsbCSharp\ProjetGsbE5\obj\Debug\ProjetGsbE5.pdb
 C:\Users\juju9\Downloads\ProjetGsbE5\ProjetGsbE5\ProjetGsbE5\obj\Debug\ProjetGsbE5.SpecialitesForm.resources
+C:\Users\juju9\Downloads\ProjetGsbE5\ProjetGsbE5\ProjetGsbE5\obj\Debug\ProjetGsbE5.ActivitesForm.resources
+C:\Users\juju9\Downloads\ProjetGsbE5\ProjetGsbE5\ProjetGsbE5\obj\Debug\ProjetGsbE5.AjouterModifierActiviteForm.resources
+C:\Users\juju9\Downloads\ProjetGsbE5\ProjetGsbE5\ProjetGsbE5\obj\Debug\ProjetGsbE5.AjouterModifierSpecialiteForm.resources

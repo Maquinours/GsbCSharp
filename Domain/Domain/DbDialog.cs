@@ -160,10 +160,137 @@ namespace Domain
             }
         }
 
+        public static DataTable GetSpecialitesAvailables(long idPraticien)
+        {
+            DataTable dt = new DataTable();
+            DataColumn[] cols =
+            {
+                new DataColumn("id", typeof(long)),
+                new DataColumn("libelle", typeof(string))
+            };
+            dt.Columns.AddRange(cols);
+
+            string sql = "SELECT * FROM specialite WHERE id_specialite NOT IN (SELECT id_specialite FROM posseder WHERE id_praticien=@praticien)";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Prepare();
+            
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    dt.Rows.Add(
+                        reader.GetInt64(reader.GetOrdinal("id_specialite")),
+                        reader.GetString(reader.GetOrdinal("lib_specialite"))
+                        );
+                }
+
+                _conn.Close();
+                return dt;
+            } catch
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
+        public static DataTable GetActivitesPraticien(long idPraticien)
+        {
+            DataTable dt = new DataTable();
+            DataColumn[] cols =
+            {
+                new DataColumn("id_activite_compl", typeof(long)),
+                new DataColumn("date_activite", typeof (string)),
+                new DataColumn("lieu_activite", typeof(string)),
+                new DataColumn("theme_activite", typeof(string)),
+                new DataColumn("motif_activite", typeof(string)),
+                new DataColumn("specialiste", typeof(char))
+            };
+            dt.Columns.AddRange(cols);
+
+            string sql = "SELECT * FROM activite_compl A JOIN inviter I ON A.id_activite_compl=I.id_activite_compl WHERE I.id_praticien=@id";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@id", idPraticien);
+            cmd.Prepare();
+
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dt.Rows.Add(
+                        reader.GetInt64(reader.GetOrdinal("id_activite_compl")),
+                        reader.GetString(reader.GetOrdinal("date_activite")),
+                        reader.GetString(reader.GetOrdinal("lieu_activite")),
+                        reader.GetString(reader.GetOrdinal("theme_activite")),
+                        reader.GetString(reader.GetOrdinal("motif_activite")),
+                        reader.GetChar(reader.GetOrdinal("specialiste"))
+                        );
+                }
+
+                _conn.Close();
+                return dt;
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
+        public static DataTable GetActivitesAvailables(long idPraticien)
+        {
+            DataTable dt = new DataTable();
+            DataColumn[] cols =
+            {
+                new DataColumn("id", typeof(long)),
+                new DataColumn("date", typeof(string)),
+                new DataColumn("lieu", typeof(string)),
+                new DataColumn("theme", typeof(string)),
+                new DataColumn("motif",typeof(string))
+            };
+            dt.Columns.AddRange(cols);
+
+            string sql = "SELECT * FROM activite_compl WHERE id_activite_compl NOT IN (SELECT id_activite_compl FROM inviter WHERE id_praticien=@praticien)";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Prepare();
+
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dt.Rows.Add(
+                        reader.GetInt64(reader.GetOrdinal("id_activite_compl")),
+                        reader.GetString(reader.GetOrdinal("date_activite")),
+                        reader.GetString(reader.GetOrdinal("lieu_activite")),
+                        reader.GetString(reader.GetOrdinal("theme_activite")),
+                        reader.GetString(reader.GetOrdinal("motif_activite"))
+                        );
+                }
+
+                _conn.Close();
+                return dt;
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
         public static void InsertPosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
         {
             string sql = "INSERT INTO posseder(id_praticien, id_specialite, diplome, coef_prescription) "
-                + "VALUES(@praticien, @specialite, @diplome, @coef_prescription";
+                + "VALUES(@praticien, @specialite, @diplome, @coef_prescription)";
             _conn.Open();
             MySqlCommand cmd = new MySqlCommand(sql, _conn);
             cmd.Parameters.AddWithValue("@praticien", idPraticien);
@@ -175,7 +302,36 @@ namespace Domain
             try
             {
                 cmd.ExecuteNonQuery();
-            } catch { throw; }
+                
+                _conn.Close();
+            } catch 
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
+        public static void InsertInviter(long idPraticien, long idActivite, char specialiste)
+        {
+            string sql = "INSERT INTO inviter(id_praticien, id_activite_compl, specialiste) "
+                + "VALUES(@praticien, @activite, @specialiste)";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Parameters.AddWithValue("@activite", idActivite);
+            cmd.Parameters.AddWithValue("@specialiste", specialiste);
+            cmd.Prepare();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+
+                _conn.Close();
+            } catch
+            {
+                _conn.Close();
+                throw;  
+            }
         }
 
         public static void UpdatePosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
@@ -192,7 +348,36 @@ namespace Domain
             try
             {
                 cmd.ExecuteNonQuery();
-            } catch { throw; }
+
+                _conn.Close();
+            } catch 
+            {
+                _conn.Close();
+                throw; 
+            }
+        }
+
+        public static void UpdateInviter(long idPraticien, long idActivite, char specialiste)
+        {
+            string sql = "UPDATE inviter SET specialiste=@specialiste WHERE id_praticien=@praticien AND id_activite_compl=@activite";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@specialiste", specialiste);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Parameters.AddWithValue("@activite", idActivite);
+            cmd.Prepare();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+
+                _conn.Close();
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
         }
 
         public static void DeletePosseder(long idPraticien, long idSpecialite)
@@ -207,7 +392,35 @@ namespace Domain
             try
             {
                 cmd.ExecuteNonQuery();
-            } catch { throw; }
+
+                _conn.Close();
+            } catch 
+            {
+                _conn.Close();
+                throw; 
+            }
+        }
+
+        public static void DeleteInviter(long idPraticien, long idActivite)
+        {
+            string sql = "DELETE FROM inviter WHERE id_praticien=@praticien AND id_activite_compl=@activite";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@praticien", idPraticien);
+            cmd.Parameters.AddWithValue("@activite", idActivite);
+            cmd.Prepare();
+
+            try
+            {
+                cmd.ExecuteNonQuery();
+
+                _conn.Close();
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
         }
     }
 }

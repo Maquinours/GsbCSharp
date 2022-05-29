@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv_specialite = new System.Windows.Forms.DataGridView();
             this.cln_idspecialite = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cln_libspecialite = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,14 +50,14 @@
             this.dgv_specialite.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgv_specialite.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgv_specialite.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_specialite.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_specialite.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_specialite.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_specialite.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cln_idspecialite,
@@ -65,11 +65,14 @@
             this.cln_diplome,
             this.cln_coefprescription});
             this.dgv_specialite.Location = new System.Drawing.Point(12, 12);
+            this.dgv_specialite.MultiSelect = false;
             this.dgv_specialite.Name = "dgv_specialite";
             this.dgv_specialite.ReadOnly = true;
             this.dgv_specialite.RowHeadersVisible = false;
+            this.dgv_specialite.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_specialite.Size = new System.Drawing.Size(240, 426);
             this.dgv_specialite.TabIndex = 0;
+            this.dgv_specialite.CurrentCellChanged += new System.EventHandler(this.dgv_specialite_CurrentCellChanged);
             // 
             // cln_idspecialite
             // 
@@ -104,24 +107,29 @@
             this.bt_ajouter.TabIndex = 1;
             this.bt_ajouter.Text = "Ajouter";
             this.bt_ajouter.UseVisualStyleBackColor = true;
+            this.bt_ajouter.Click += new System.EventHandler(this.bt_ajouter_Click);
             // 
             // bt_modifier
             // 
+            this.bt_modifier.Enabled = false;
             this.bt_modifier.Location = new System.Drawing.Point(322, 188);
             this.bt_modifier.Name = "bt_modifier";
             this.bt_modifier.Size = new System.Drawing.Size(134, 40);
             this.bt_modifier.TabIndex = 2;
             this.bt_modifier.Text = "Modifier ";
             this.bt_modifier.UseVisualStyleBackColor = true;
+            this.bt_modifier.Click += new System.EventHandler(this.bt_modifier_Click);
             // 
             // bt_supprimer
             // 
+            this.bt_supprimer.Enabled = false;
             this.bt_supprimer.Location = new System.Drawing.Point(322, 272);
             this.bt_supprimer.Name = "bt_supprimer";
             this.bt_supprimer.Size = new System.Drawing.Size(134, 40);
             this.bt_supprimer.TabIndex = 3;
             this.bt_supprimer.Text = "Supprimer";
             this.bt_supprimer.UseVisualStyleBackColor = true;
+            this.bt_supprimer.Click += new System.EventHandler(this.bt_supprimer_Click);
             // 
             // lb_specialite
             // 

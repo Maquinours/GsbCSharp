@@ -84,6 +84,16 @@ namespace ProjetGsbE5
                     );
                 formSpecialites.ShowDialog();
             }
+
+            else if(e.ColumnIndex == cln_activites.Index)
+            {
+                ActivitesForm formActivites = new ActivitesForm(
+                    (long)dgv_praticiens.Rows[e.RowIndex].Cells[cln_id.Index].Value,
+                    dgv_praticiens.Rows[e.RowIndex].Cells[cln_prenom.Index].Value.ToString(),
+                    dgv_praticiens.Rows[e.RowIndex].Cells[cln_nom.Index].Value.ToString()
+                    );
+                formActivites.Show();
+            }
         }
     }
 }

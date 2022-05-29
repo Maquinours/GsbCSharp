@@ -36,7 +36,7 @@
             this.cln_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cln_adresse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cln_specialites = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cln_invitations = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cln_activites = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_praticiens)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,7 +66,7 @@
             this.cln_type,
             this.cln_adresse,
             this.cln_specialites,
-            this.cln_invitations});
+            this.cln_activites});
             this.dgv_praticiens.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_praticiens.Location = new System.Drawing.Point(0, 0);
             this.dgv_praticiens.Name = "dgv_praticiens";
@@ -123,13 +123,13 @@
             this.cln_specialites.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.cln_specialites.Width = 64;
             // 
-            // cln_invitations
+            // cln_activites
             // 
-            this.cln_invitations.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.cln_invitations.HeaderText = "Invitations";
-            this.cln_invitations.Name = "cln_invitations";
-            this.cln_invitations.ReadOnly = true;
-            this.cln_invitations.Width = 61;
+            this.cln_activites.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.cln_activites.HeaderText = "Activités";
+            this.cln_activites.Name = "cln_activites";
+            this.cln_activites.ReadOnly = true;
+            this.cln_activites.Width = 53;
             // 
             // MainForm
             // 
@@ -155,7 +155,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cln_type;
         private System.Windows.Forms.DataGridViewTextBoxColumn cln_adresse;
         private System.Windows.Forms.DataGridViewButtonColumn cln_specialites;
-        private System.Windows.Forms.DataGridViewButtonColumn cln_invitations;
+        private System.Windows.Forms.DataGridViewButtonColumn cln_activites;
     }
 }
 

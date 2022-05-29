@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lb_titre_sp = new System.Windows.Forms.Label();
-            this.tb_libelle = new System.Windows.Forms.TextBox();
             this.bt_valider_sp = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,6 +36,7 @@
             this.tb_coef = new System.Windows.Forms.TextBox();
             this.tb_diplome = new System.Windows.Forms.TextBox();
             this.bt_annuler_sp = new System.Windows.Forms.Button();
+            this.cb_libelle = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lb_titre_sp
@@ -49,13 +49,6 @@
             this.lb_titre_sp.TabIndex = 0;
             this.lb_titre_sp.Text = "Ajout/Modification spécialité";
             // 
-            // tb_libelle
-            // 
-            this.tb_libelle.Location = new System.Drawing.Point(247, 80);
-            this.tb_libelle.Name = "tb_libelle";
-            this.tb_libelle.Size = new System.Drawing.Size(144, 20);
-            this.tb_libelle.TabIndex = 1;
-            // 
             // bt_valider_sp
             // 
             this.bt_valider_sp.Location = new System.Drawing.Point(95, 217);
@@ -64,6 +57,7 @@
             this.bt_valider_sp.TabIndex = 2;
             this.bt_valider_sp.Text = "Valider";
             this.bt_valider_sp.UseVisualStyleBackColor = true;
+            this.bt_valider_sp.Click += new System.EventHandler(this.bt_valider_sp_Click);
             // 
             // label2
             // 
@@ -101,6 +95,7 @@
             this.tb_coef.Name = "tb_coef";
             this.tb_coef.Size = new System.Drawing.Size(77, 20);
             this.tb_coef.TabIndex = 6;
+            this.tb_coef.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_coef_KeyPress);
             // 
             // tb_diplome
             // 
@@ -108,6 +103,7 @@
             this.tb_diplome.Name = "tb_diplome";
             this.tb_diplome.Size = new System.Drawing.Size(144, 20);
             this.tb_diplome.TabIndex = 7;
+            this.tb_diplome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_diplome_KeyPress);
             // 
             // bt_annuler_sp
             // 
@@ -118,11 +114,21 @@
             this.bt_annuler_sp.Text = "Annuler";
             this.bt_annuler_sp.UseVisualStyleBackColor = true;
             // 
+            // cb_libelle
+            // 
+            this.cb_libelle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_libelle.FormattingEnabled = true;
+            this.cb_libelle.Location = new System.Drawing.Point(247, 79);
+            this.cb_libelle.Name = "cb_libelle";
+            this.cb_libelle.Size = new System.Drawing.Size(121, 21);
+            this.cb_libelle.TabIndex = 9;
+            // 
             // AjouterModifierSpecialiteForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(509, 301);
+            this.Controls.Add(this.cb_libelle);
             this.Controls.Add(this.bt_annuler_sp);
             this.Controls.Add(this.tb_diplome);
             this.Controls.Add(this.tb_coef);
@@ -130,11 +136,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.bt_valider_sp);
-            this.Controls.Add(this.tb_libelle);
             this.Controls.Add(this.lb_titre_sp);
             this.Name = "AjouterModifierSpecialiteForm";
             this.Text = "AjouterModifierSpecialiteForm";
-            this.Load += new System.EventHandler(this.AjouterModifierSpecialiteForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,7 +147,6 @@
         #endregion
 
         private System.Windows.Forms.Label lb_titre_sp;
-        private System.Windows.Forms.TextBox tb_libelle;
         private System.Windows.Forms.Button bt_valider_sp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -151,5 +154,6 @@
         private System.Windows.Forms.TextBox tb_coef;
         private System.Windows.Forms.TextBox tb_diplome;
         private System.Windows.Forms.Button bt_annuler_sp;
+        private System.Windows.Forms.ComboBox cb_libelle;
     }
 }
