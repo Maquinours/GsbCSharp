@@ -30,13 +30,13 @@
         {
             this.tc_search = new System.Windows.Forms.TabControl();
             this.tp_nom = new System.Windows.Forms.TabPage();
+            this.tb_nom = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.tp_sp = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cb_specialites = new System.Windows.Forms.ComboBox();
             this.bt_valider_search = new System.Windows.Forms.Button();
             this.bt_annuler_search = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tb_search = new System.Windows.Forms.TextBox();
-            this.cb_search = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.tc_search.SuspendLayout();
             this.tp_nom.SuspendLayout();
             this.tp_sp.SuspendLayout();
@@ -55,7 +55,7 @@
             // 
             // tp_nom
             // 
-            this.tp_nom.Controls.Add(this.tb_search);
+            this.tp_nom.Controls.Add(this.tb_nom);
             this.tp_nom.Controls.Add(this.label1);
             this.tp_nom.Location = new System.Drawing.Point(4, 22);
             this.tp_nom.Name = "tp_nom";
@@ -65,35 +65,12 @@
             this.tp_nom.Text = "Nom";
             this.tp_nom.UseVisualStyleBackColor = true;
             // 
-            // tp_sp
+            // tb_nom
             // 
-            this.tp_sp.Controls.Add(this.label2);
-            this.tp_sp.Controls.Add(this.cb_search);
-            this.tp_sp.Location = new System.Drawing.Point(4, 22);
-            this.tp_sp.Name = "tp_sp";
-            this.tp_sp.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_sp.Size = new System.Drawing.Size(356, 101);
-            this.tp_sp.TabIndex = 1;
-            this.tp_sp.Text = "Spécialité";
-            this.tp_sp.UseVisualStyleBackColor = true;
-            // 
-            // bt_valider_search
-            // 
-            this.bt_valider_search.Location = new System.Drawing.Point(59, 156);
-            this.bt_valider_search.Name = "bt_valider_search";
-            this.bt_valider_search.Size = new System.Drawing.Size(102, 23);
-            this.bt_valider_search.TabIndex = 5;
-            this.bt_valider_search.Text = "Valider";
-            this.bt_valider_search.UseVisualStyleBackColor = true;
-            // 
-            // bt_annuler_search
-            // 
-            this.bt_annuler_search.Location = new System.Drawing.Point(228, 156);
-            this.bt_annuler_search.Name = "bt_annuler_search";
-            this.bt_annuler_search.Size = new System.Drawing.Size(102, 23);
-            this.bt_annuler_search.TabIndex = 6;
-            this.bt_annuler_search.Text = "Annuler";
-            this.bt_annuler_search.UseVisualStyleBackColor = true;
+            this.tb_nom.Location = new System.Drawing.Point(103, 39);
+            this.tb_nom.Name = "tb_nom";
+            this.tb_nom.Size = new System.Drawing.Size(135, 20);
+            this.tb_nom.TabIndex = 1;
             // 
             // label1
             // 
@@ -105,20 +82,17 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Par nom :";
             // 
-            // tb_search
+            // tp_sp
             // 
-            this.tb_search.Location = new System.Drawing.Point(103, 39);
-            this.tb_search.Name = "tb_search";
-            this.tb_search.Size = new System.Drawing.Size(135, 20);
-            this.tb_search.TabIndex = 1;
-            // 
-            // cb_search
-            // 
-            this.cb_search.FormattingEnabled = true;
-            this.cb_search.Location = new System.Drawing.Point(103, 39);
-            this.cb_search.Name = "cb_search";
-            this.cb_search.Size = new System.Drawing.Size(135, 21);
-            this.cb_search.TabIndex = 0;
+            this.tp_sp.Controls.Add(this.label2);
+            this.tp_sp.Controls.Add(this.cb_specialites);
+            this.tp_sp.Location = new System.Drawing.Point(4, 22);
+            this.tp_sp.Name = "tp_sp";
+            this.tp_sp.Padding = new System.Windows.Forms.Padding(3);
+            this.tp_sp.Size = new System.Drawing.Size(356, 101);
+            this.tp_sp.TabIndex = 1;
+            this.tp_sp.Text = "Spécialité";
+            this.tp_sp.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -130,10 +104,41 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Par spécialité :";
             // 
+            // cb_specialites
+            // 
+            this.cb_specialites.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_specialites.FormattingEnabled = true;
+            this.cb_specialites.Location = new System.Drawing.Point(103, 39);
+            this.cb_specialites.Name = "cb_specialites";
+            this.cb_specialites.Size = new System.Drawing.Size(135, 21);
+            this.cb_specialites.TabIndex = 0;
+            // 
+            // bt_valider_search
+            // 
+            this.bt_valider_search.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.bt_valider_search.Location = new System.Drawing.Point(59, 156);
+            this.bt_valider_search.Name = "bt_valider_search";
+            this.bt_valider_search.Size = new System.Drawing.Size(102, 23);
+            this.bt_valider_search.TabIndex = 5;
+            this.bt_valider_search.Text = "Valider";
+            this.bt_valider_search.UseVisualStyleBackColor = true;
+            // 
+            // bt_annuler_search
+            // 
+            this.bt_annuler_search.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.bt_annuler_search.Location = new System.Drawing.Point(228, 156);
+            this.bt_annuler_search.Name = "bt_annuler_search";
+            this.bt_annuler_search.Size = new System.Drawing.Size(102, 23);
+            this.bt_annuler_search.TabIndex = 6;
+            this.bt_annuler_search.Text = "Annuler";
+            this.bt_annuler_search.UseVisualStyleBackColor = true;
+            // 
             // SearchForm
             // 
+            this.AcceptButton = this.bt_valider_search;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.bt_annuler_search;
             this.ClientSize = new System.Drawing.Size(384, 201);
             this.Controls.Add(this.bt_annuler_search);
             this.Controls.Add(this.bt_valider_search);
@@ -154,10 +159,10 @@
         private System.Windows.Forms.TabControl tc_search;
         private System.Windows.Forms.TabPage tp_nom;
         private System.Windows.Forms.TabPage tp_sp;
-        private System.Windows.Forms.TextBox tb_search;
+        private System.Windows.Forms.TextBox tb_nom;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cb_search;
+        private System.Windows.Forms.ComboBox cb_specialites;
         private System.Windows.Forms.Button bt_valider_search;
         private System.Windows.Forms.Button bt_annuler_search;
     }

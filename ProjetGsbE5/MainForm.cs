@@ -21,27 +21,55 @@ namespace ProjetGsbE5
         #region Méthodes évènementielles 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == (Keys.Control | Keys.F))
+            if (e.KeyData == (Keys.Control | Keys.F)) // Rechercher
             {
-                SearchForm search = new SearchForm();
-                if (search.ShowDialog() == DialogResult.OK)
+                SearchForm form = new SearchForm();
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    foreach (DataGridViewRow dgvr in dgv_praticiens.Rows)
+                    switch(form.SearchType)
                     {
-                        if (dgvr.Cells[cln_nom.Index].Value.ToString().ToLower().Contains(search.SearchText.ToLower()))
-                        {
-                            dgvr.Visible = true;
-                        }
-                        else
-                            dgvr.Visible = false;
+                        case SearchType.Nom:
+                            {
+                                string textToSearch = form.SearchNom.ToLower();
+                                foreach (DataGridViewRow dgvr in dgv_praticiens.Rows)
+                                {
+                                    if (dgvr.Cells[cln_nom.Index].Value.ToString().ToLower().Contains(textToSearch))
+                                        dgvr.Visible = true;
+                                    else
+                                        dgvr.Visible = false;
+                                }
+                                break;
+                            }
+                           
+                            case SearchType.Specialite:
+                            {
+                                long specialiteToSearch = form.SearchSpecialite;
+                                HashSet<long> praticiensToSearch = DbDialog.GetPraticiensBySpecialite(specialiteToSearch);
+                                foreach(DataGridViewRow dgvr in dgv_praticiens.Rows)
+                                {
+                                    if (praticiensToSearch.Contains((long)dgvr.Cells[cln_id.Index].Value))
+                                        dgvr.Visible = true;
+                                    else
+                                        dgvr.Visible = false;
+                                }
+                                break;
+                            }
                     }
                 }
             }
 
-            if (e.KeyData == (Keys.Control | Keys.D))
+            else if (e.KeyData == (Keys.Control | Keys.D)) // Déconnexion
             {
                 this.Hide();
                 Login();
+            }
+
+            else if(e.KeyData == (Keys.Control | Keys.R)) // Raffraichir
+            {
+                foreach(DataGridViewRow dgvr in dgv_praticiens.Rows)
+                {
+                    dgvr.Visible = true;
+                }
             }
 
         }

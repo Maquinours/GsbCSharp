@@ -287,6 +287,74 @@ namespace Domain
             }
         }
 
+        public static DataTable GetSpecialites()
+        {
+            DataTable dt = new DataTable();
+            DataColumn[] cols =
+            {
+                new DataColumn("id", typeof(long)),
+                new DataColumn("libelle", typeof(string))
+            };
+            dt.Columns.AddRange(cols);
+
+            string sql = "SELECT * FROM specialite";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Prepare();
+
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    dt.Rows.Add(
+                        reader.GetInt64(reader.GetOrdinal("id_specialite")),
+                        reader.GetString(reader.GetOrdinal("lib_specialite"))
+                        );
+                }
+
+                _conn.Close();
+                return dt;
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
+        public static HashSet<long> GetPraticiensBySpecialite(long idSpecialite)
+        {
+            HashSet<long> hs = new HashSet<long>();
+
+            string sql = "SELECT PR.id_praticien FROM praticien PR JOIN posseder PO ON PR.id_praticien=PO.id_praticien WHERE PO.id_specialite=@specialite";
+            _conn.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, _conn);
+            cmd.Parameters.AddWithValue("@specialite", idSpecialite);
+            cmd.Prepare();
+
+            try
+            {
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    hs.Add(
+                        reader.GetInt64(reader.GetOrdinal("id_praticien"))
+                        );
+                }
+
+                _conn.Close();
+                return hs;
+            }
+            catch
+            {
+                _conn.Close();
+                throw;
+            }
+        }
+
         public static void InsertPosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
         {
             string sql = "INSERT INTO posseder(id_praticien, id_specialite, diplome, coef_prescription) "
