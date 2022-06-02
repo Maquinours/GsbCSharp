@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lb_titre_sp = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AjouterModifierSpecialiteForm));
             this.bt_valider_sp = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -39,19 +39,9 @@
             this.cb_libelle = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // lb_titre_sp
-            // 
-            this.lb_titre_sp.AutoSize = true;
-            this.lb_titre_sp.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_titre_sp.Location = new System.Drawing.Point(90, 27);
-            this.lb_titre_sp.Name = "lb_titre_sp";
-            this.lb_titre_sp.Size = new System.Drawing.Size(309, 25);
-            this.lb_titre_sp.TabIndex = 0;
-            this.lb_titre_sp.Text = "Ajout/Modification spécialité";
-            // 
             // bt_valider_sp
             // 
-            this.bt_valider_sp.Location = new System.Drawing.Point(95, 217);
+            this.bt_valider_sp.Location = new System.Drawing.Point(32, 128);
             this.bt_valider_sp.Name = "bt_valider_sp";
             this.bt_valider_sp.Size = new System.Drawing.Size(109, 33);
             this.bt_valider_sp.TabIndex = 2;
@@ -63,7 +53,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(92, 82);
+            this.label2.Location = new System.Drawing.Point(26, 20);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 18);
             this.label2.TabIndex = 3;
@@ -73,7 +63,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(92, 111);
+            this.label3.Location = new System.Drawing.Point(26, 49);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(63, 18);
             this.label3.TabIndex = 4;
@@ -83,7 +73,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(92, 141);
+            this.label4.Location = new System.Drawing.Point(26, 79);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(127, 18);
             this.label4.TabIndex = 5;
@@ -91,7 +81,7 @@
             // 
             // tb_coef
             // 
-            this.tb_coef.Location = new System.Drawing.Point(247, 142);
+            this.tb_coef.Location = new System.Drawing.Point(181, 80);
             this.tb_coef.Name = "tb_coef";
             this.tb_coef.Size = new System.Drawing.Size(77, 20);
             this.tb_coef.TabIndex = 6;
@@ -99,7 +89,7 @@
             // 
             // tb_diplome
             // 
-            this.tb_diplome.Location = new System.Drawing.Point(247, 111);
+            this.tb_diplome.Location = new System.Drawing.Point(181, 49);
             this.tb_diplome.Name = "tb_diplome";
             this.tb_diplome.Size = new System.Drawing.Size(144, 20);
             this.tb_diplome.TabIndex = 7;
@@ -107,7 +97,8 @@
             // 
             // bt_annuler_sp
             // 
-            this.bt_annuler_sp.Location = new System.Drawing.Point(290, 217);
+            this.bt_annuler_sp.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.bt_annuler_sp.Location = new System.Drawing.Point(227, 128);
             this.bt_annuler_sp.Name = "bt_annuler_sp";
             this.bt_annuler_sp.Size = new System.Drawing.Size(109, 33);
             this.bt_annuler_sp.TabIndex = 8;
@@ -118,16 +109,18 @@
             // 
             this.cb_libelle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_libelle.FormattingEnabled = true;
-            this.cb_libelle.Location = new System.Drawing.Point(247, 79);
+            this.cb_libelle.Location = new System.Drawing.Point(181, 17);
             this.cb_libelle.Name = "cb_libelle";
             this.cb_libelle.Size = new System.Drawing.Size(121, 21);
             this.cb_libelle.TabIndex = 9;
             // 
             // AjouterModifierSpecialiteForm
             // 
+            this.AcceptButton = this.bt_valider_sp;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 301);
+            this.CancelButton = this.bt_annuler_sp;
+            this.ClientSize = new System.Drawing.Size(366, 170);
             this.Controls.Add(this.cb_libelle);
             this.Controls.Add(this.bt_annuler_sp);
             this.Controls.Add(this.tb_diplome);
@@ -136,17 +129,15 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.bt_valider_sp);
-            this.Controls.Add(this.lb_titre_sp);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "AjouterModifierSpecialiteForm";
-            this.Text = "AjouterModifierSpecialiteForm";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lb_titre_sp;
         private System.Windows.Forms.Button bt_valider_sp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

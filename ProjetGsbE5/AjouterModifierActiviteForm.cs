@@ -13,17 +13,29 @@ namespace ProjetGsbE5
 {
     public partial class AjouterModifierActiviteForm : Form
     {
+        #region Propriétés
         private long _idPraticien;
         private long _idActivite;
         private DataTable _activites;
+        #endregion
 
+        #region Constructeurs
         public AjouterModifierActiviteForm(long idPraticien)
         {
             _idPraticien = idPraticien;
             _idActivite = -1;
-            _activites = DbDialog.GetActivitesAvailables(idPraticien);
-            InitializeComponent();
-            LoadDates();
+            try
+            {
+                _activites = DbDialog.GetActivitesAvailables(idPraticien);
+
+                InitializeComponent();
+                this.Text = "Ajout d'une activité";
+                LoadDates();
+            } catch
+            {
+                MessageBox.Show("Erreur lors du chargement des activités disponibles", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
 
         public AjouterModifierActiviteForm(long idPraticien, long idActivite, string dateActivite, string lieuActivite, string themeActivite, string motifActivite, char specialiste)
@@ -31,6 +43,7 @@ namespace ProjetGsbE5
             _idPraticien = idPraticien;
             _idActivite = idActivite;
             InitializeComponent();
+            this.Text = "Modification d'une activité";
             cb_date.Enabled = false;
             cb_date.Items.Add(dateActivite);
             cb_date.SelectedItem = dateActivite;
@@ -42,7 +55,9 @@ namespace ProjetGsbE5
             cb_motif.SelectedItem = motifActivite;
             tb_specialiste.Text = specialiste.ToString();
         }
+        #endregion
 
+        #region Méthodes privées
         private void LoadDates()
         {
             cb_date.Items.Clear();
@@ -117,7 +132,9 @@ namespace ProjetGsbE5
             }
             throw new Exception("Impossible de trouver l'ID de l'activité selectionnée");
         }
+        #endregion
 
+        #region Méthodes évènementielles
         private void cb_date_SelectedValueChanged(object sender, EventArgs e)
         {
             if (_idActivite != -1) return;
@@ -170,13 +187,26 @@ namespace ProjetGsbE5
             // Insert or update
             if(_idActivite == -1)
             {
-                DbDialog.InsertInviter(_idPraticien, GetSelectedActiviteId(), char.Parse(tb_specialiste.Text));
+                try
+                {
+                    DbDialog.InsertInviter(_idPraticien, GetSelectedActiviteId(), char.Parse(tb_specialiste.Text));
+                } catch
+                {
+                    MessageBox.Show("Erreur lors de l'ajout de l'activité", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                DbDialog.UpdateInviter(_idPraticien, _idActivite, char.Parse(tb_specialiste.Text));
+                try
+                {
+                    DbDialog.UpdateInviter(_idPraticien, _idActivite, char.Parse(tb_specialiste.Text));
+                } catch
+                {
+                    MessageBox.Show("Erreur lors de la modification de l'activité", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             this.DialogResult = DialogResult.OK;
         }
+        #endregion
     }
 }

@@ -10,10 +10,10 @@ namespace Domain
         private static MySqlConnection _conn = new MySqlConnection($"Server=localhost;Database=gsb;port=3306;User Id=usersio;password=sio");
 
         /// <summary>
-        /// Obtenir le mot de passe et le sel d'un visiteur
+        /// Obtient le mot de passe et le sel d'un visiteur
         /// </summary>
         /// <param name="login">Login du visiteur à chercher</param>
-        /// <returns>mot de passe et sel d'un visiteur</returns>
+        /// <returns>DataTable contenant le mot de passe (index "pwd") et sel (index "pwd_salt") d'un visiteur</returns>
         public static DataTable GetVisiteur(string login)
         {
             DataTable dt = new DataTable();
@@ -48,9 +48,9 @@ namespace Domain
         }
 
         /// <summary>
-        /// Obtenir les informations de chaque praticien
+        /// Obtient les informations de chaque praticien
         /// </summary>
-        /// <returns>informations de chaque visi</returns>
+        /// <returns>DataTable contenant les propriétés "id", "nom", "prenom", "type", "adresse" pour chaque praticien</returns>
         public static DataTable GetPraticiens()
         {
             DataTable dt = new DataTable();
@@ -92,6 +92,10 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Obtient tous les types de praticiens
+        /// </summary>
+        /// <returns>Dictionary contenant l'ID du type en tant que clé et le libellé du type en tant que valeur</returns>
         public static Dictionary<long, string> GetTypesPraticiens()
         {
             Dictionary<long, string> ret = new Dictionary<long, string>();
@@ -118,6 +122,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Obtient les spécialités d'un praticien
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien dont il faut obtenir les spécialités</param>
+        /// <returns>DataTable contenant les propriétés "id_specialite", "lib_specialite", "diplome" et "coef_prescription"</returns>
         public static DataTable GetSpecialitesPraticien(long idPraticien)
         {
             DataTable dt = new DataTable();
@@ -160,6 +169,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Obtient toutes les spécialités que ne possède pas le praticien passé en paramètre
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien dont il faut obtenir les spécialités qu'il ne possède pas</param>
+        /// <returns></returns>
         public static DataTable GetSpecialitesAvailables(long idPraticien)
         {
             DataTable dt = new DataTable();
@@ -197,6 +211,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Obtient toutes les activités auxquelles le praticien est invité
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien dont il faut rechercher les activités auxquelles il est invité</param>
+        /// <returns>DataTable avec les propriétés "id_activite_compl", "date_activite", "lieu_activite", "theme_activite", "motif_activite" et "specialiste"</returns>
         public static DataTable GetActivitesPraticien(long idPraticien)
         {
             DataTable dt = new DataTable();
@@ -243,6 +262,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Obtient les activités auxquelles le praticien passé en paramètre n'est pas invité
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien dont il faut retourner les activités auxquelles il n'est pas invité</param>
+        /// <returns>DataTable contenant les propriétés "id", "date", "lieu", "theme" et "motif"</returns>
         public static DataTable GetActivitesAvailables(long idPraticien)
         {
             DataTable dt = new DataTable();
@@ -287,6 +311,10 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Obtient toutes les spécialités
+        /// </summary>
+        /// <returns>DataTable avec les propriétés "id" et "libelle"</returns>
         public static DataTable GetSpecialites()
         {
             DataTable dt = new DataTable();
@@ -324,6 +352,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Cherche et retourne les praticiens ayant la spécialité passée en paramètre
+        /// </summary>
+        /// <param name="idSpecialite">ID de la spécialité à rechercher</param>
+        /// <returns>un HashSet contenant l'ID de chaque praticien ayant la spécialité recherchée</returns>
         public static HashSet<long> GetPraticiensBySpecialite(long idSpecialite)
         {
             HashSet<long> hs = new HashSet<long>();
@@ -355,6 +388,13 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Insère un enregistrement dans la table Posseder
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien</param>
+        /// <param name="idSpecialite">ID de la spécialité</param>
+        /// <param name="diplome">Diplome</param>
+        /// <param name="coefPrescription">Coef. Prescription</param>
         public static void InsertPosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
         {
             string sql = "INSERT INTO posseder(id_praticien, id_specialite, diplome, coef_prescription) "
@@ -379,6 +419,12 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Insère un enregistrement dans la table Inviter
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien</param>
+        /// <param name="idActivite">ID de l'activité</param>
+        /// <param name="specialiste">Spécialiste</param>
         public static void InsertInviter(long idPraticien, long idActivite, char specialiste)
         {
             string sql = "INSERT INTO inviter(id_praticien, id_activite_compl, specialiste) "
@@ -402,6 +448,13 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Modifie un enregistrement dans la table Posseder
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien</param>
+        /// <param name="idSpecialite">ID du spécialiste</param>
+        /// <param name="diplome">Diplome</param>
+        /// <param name="coefPrescription">Coef. Prescription</param>
         public static void UpdatePosseder(long idPraticien, long idSpecialite, string diplome, decimal coefPrescription)
         {
             string sql = "UPDATE posseder SET diplome=@diplome, coef_prescription=@coef_prescription WHERE id_praticien=@praticien AND id_specialite=@specialite";
@@ -425,6 +478,12 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Modifie un enregistrement dans la table Inviter
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien</param>
+        /// <param name="idActivite">ID de l'activité</param>
+        /// <param name="specialiste">Spécialiste</param>
         public static void UpdateInviter(long idPraticien, long idActivite, char specialiste)
         {
             string sql = "UPDATE inviter SET specialiste=@specialiste WHERE id_praticien=@praticien AND id_activite_compl=@activite";
@@ -448,6 +507,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Supprime un enregistrement dans la table Posseder
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien</param>
+        /// <param name="idSpecialite">ID de la spécialité</param>
         public static void DeletePosseder(long idPraticien, long idSpecialite)
         {
             string sql = "DELETE FROM posseder WHERE id_praticien=@praticien AND id_specialite=@specialite";
@@ -469,6 +533,11 @@ namespace Domain
             }
         }
 
+        /// <summary>
+        /// Supprime un enregistrement dans la table Inviter
+        /// </summary>
+        /// <param name="idPraticien">ID du praticien</param>
+        /// <param name="idActivite">ID de l'activité</param>
         public static void DeleteInviter(long idPraticien, long idActivite)
         {
             string sql = "DELETE FROM inviter WHERE id_praticien=@praticien AND id_activite_compl=@activite";

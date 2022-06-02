@@ -13,16 +13,24 @@ namespace ProjetGsbE5
 {
     public partial class SpecialitesForm : Form
     {
+        #region Propriétés
         private long _idPraticien;
+        private string _praticienName;
+        #endregion
+
+        #region Constructeurs
         public SpecialitesForm(long praticienId, string praticienFirstName, string praticienLastName)
         {
             this._idPraticien = praticienId;
+            this._praticienName = $"{praticienFirstName} {praticienLastName}";
             InitializeComponent();
 
-            lb_specialite.Text += $"{praticienFirstName} {praticienLastName}";
+            this.Text = $"Spécialités de {_praticienName}";
             LoadSpecialites();
         }
+        #endregion
 
+        #region Méthodes privées
         private void LoadSpecialites()
         {
             try
@@ -32,21 +40,30 @@ namespace ProjetGsbE5
                 {
                     dgv_specialite.Rows.Add(dr["id_specialite"], dr["lib_specialite"], dr["diplome"], dr["coef_prescription"]);
                 }
-            } catch { throw; }
+            } catch 
+            {
+                MessageBox.Show("Erreur lors du chargement des spécialités", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
+        #endregion
 
+        #region Méthodes évènementielles
         private void bt_ajouter_Click(object sender, EventArgs e)
         {
             AjouterModifierSpecialiteForm form = new AjouterModifierSpecialiteForm(this._idPraticien);
 
-            switch(form.ShowDialog())
+            try
             {
-                case DialogResult.OK:
-                    {
-                        LoadSpecialites();
-                        break;
-                    }
-            }
+                switch (form.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        {
+                            LoadSpecialites();
+                            break;
+                        }
+                }
+            } catch { }
         }
 
         private void bt_modifier_Click(object sender, EventArgs e)
@@ -62,14 +79,17 @@ namespace ProjetGsbE5
                 dgvcc[cln_coefprescription.Index].Value.ToString()
                 );
 
-            switch(form.ShowDialog())
+            try
             {
-                case DialogResult.OK:
-                    {
-                        LoadSpecialites();
-                        break;
-                    }
-            }
+                switch (form.ShowDialog())
+                {
+                    case DialogResult.OK:
+                        {
+                            LoadSpecialites();
+                            break;
+                        }
+                }
+            } catch { }
         }
 
         private void bt_supprimer_Click(object sender, EventArgs e)
@@ -78,15 +98,21 @@ namespace ProjetGsbE5
 
             DataGridViewCellCollection dgvcc = dgv_specialite.SelectedRows[0].Cells;
             switch (
-                MessageBox.Show($"Souhaitez-vous vraiment supprimer la spécialité \"{dgvcc[cln_libspecialite.Index].Value}\" des {lb_specialite.Text} ?",
+                MessageBox.Show($"Souhaitez-vous vraiment supprimer la spécialité \"{dgvcc[cln_libspecialite.Index].Value}\" à {_praticienName} ?",
                 "Confirmation de suppression",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning))
             {
                 case DialogResult.Yes:
                     {
-                        DbDialog.DeletePosseder(_idPraticien, (long)dgvcc[cln_idspecialite.Index].Value);
-                        LoadSpecialites();
+                        try
+                        {
+                            DbDialog.DeletePosseder(_idPraticien, (long)dgvcc[cln_idspecialite.Index].Value);
+                            LoadSpecialites();
+                        } catch
+                        {
+                            MessageBox.Show("Erreur lors de la suppression de la spécialité", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         break;
                     }
             }
@@ -100,5 +126,6 @@ namespace ProjetGsbE5
                 bt_supprimer.Enabled = true;
             }
         }
+        #endregion
     }
 }

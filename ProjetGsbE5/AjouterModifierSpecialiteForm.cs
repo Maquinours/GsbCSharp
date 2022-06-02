@@ -13,15 +13,19 @@ namespace ProjetGsbE5
 {
     public partial class AjouterModifierSpecialiteForm : Form
     {
+        #region Propriétés
         private long _idPraticien;
         private long _idSpecialite;
         private Dictionary<string, long> _specialites = new Dictionary<string, long>();
+        #endregion
 
+        #region Constructeurs
         public AjouterModifierSpecialiteForm(long idPraticien)
         {
             _idPraticien = idPraticien;
             _idSpecialite = -1;
             InitializeComponent();
+            this.Text = "Ajout d'une spécialité";
             LoadAvailablesSpecialites();
         }
 
@@ -30,23 +34,35 @@ namespace ProjetGsbE5
             _idPraticien = idPraticien;
             _idSpecialite = idSpecialite;
             InitializeComponent();
+            this.Text = "Modification d'une spécialité";
             cb_libelle.Items.Add(libSpecialite);
             cb_libelle.SelectedItem = libSpecialite;
             cb_libelle.Enabled = false;
             tb_diplome.Text = diplome;
             tb_coef.Text = coefPrescription;
         }
+        #endregion
 
+        #region Méthodes privées
         private void LoadAvailablesSpecialites()
         {
-            DataTable specialites = DbDialog.GetSpecialitesAvailables(this._idPraticien);
-            foreach (DataRow specialite in specialites.Rows)
+            try
             {
-                cb_libelle.Items.Add(specialite["libelle"]);
-                _specialites.Add((string)specialite["libelle"], (long)specialite["id"]);
+                DataTable specialites = DbDialog.GetSpecialitesAvailables(this._idPraticien);
+                foreach (DataRow specialite in specialites.Rows)
+                {
+                    cb_libelle.Items.Add(specialite["libelle"]);
+                    _specialites.Add((string)specialite["libelle"], (long)specialite["id"]);
+                }
+            } catch
+            {
+                MessageBox.Show("Erreur lors du chargement des spécialités disponibles", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
         }
+        #endregion
 
+        #region Méthodes évènementielles
         private void bt_valider_sp_Click(object sender, EventArgs e)
         {
             // Check values
@@ -69,11 +85,23 @@ namespace ProjetGsbE5
             // Insert or update
             if (_idSpecialite == -1)
             {
-                DbDialog.InsertPosseder(_idPraticien, _specialites[cb_libelle.Text], tb_diplome.Text, Decimal.Parse(tb_coef.Text));
+                try
+                {
+                    DbDialog.InsertPosseder(_idPraticien, _specialites[cb_libelle.Text], tb_diplome.Text, Decimal.Parse(tb_coef.Text));
+                } catch
+                {
+                    MessageBox.Show("Erreur lors de l'ajout de la spécialité", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
-                DbDialog.UpdatePosseder(_idPraticien, _idSpecialite, tb_diplome.Text, Decimal.Parse(tb_coef.Text));
+                try
+                {
+                    DbDialog.UpdatePosseder(_idPraticien, _idSpecialite, tb_diplome.Text, Decimal.Parse(tb_coef.Text));
+                } catch
+                {
+                    MessageBox.Show("Erreur lors de la modification de la spécialité", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             this.DialogResult = DialogResult.OK;
         }
@@ -98,5 +126,6 @@ namespace ProjetGsbE5
 
             e.Handled = true;
         }
+        #endregion
     }
 }

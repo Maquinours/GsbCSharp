@@ -6,11 +6,14 @@ namespace Domain
 {
     public partial class LoginForm : Form
     {
+        #region Constructeurs
         public LoginForm()
         {
             InitializeComponent();
         }
+        #endregion
 
+        #region Méthodes évènementielles
         private void btn_connection_Click(object sender, EventArgs e)
         {
 
@@ -29,9 +32,9 @@ namespace Domain
             catch (Exception ex)
             {
                 if (ex.Message == "Aucun résultat")
-                    MessageBox.Show("Login ou mot de passe incorrect", "Erreur d'authentification");
+                    MessageBox.Show("Login ou mot de passe incorrect", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
-                    MessageBox.Show("Erreur inconnue", "Erreur d'authentification");
+                    MessageBox.Show("Erreur lors de l'authentification", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -40,5 +43,6 @@ namespace Domain
             if (MessageBox.Show("Souhaitez-vous vraiment quitter le programme ?", "Quitter le programme", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 DialogResult = DialogResult.Cancel;
         }
+        #endregion
     }
 }
