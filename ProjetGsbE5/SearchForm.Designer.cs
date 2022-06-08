@@ -38,15 +38,20 @@
             this.cb_specialites = new System.Windows.Forms.ComboBox();
             this.bt_valider_search = new System.Windows.Forms.Button();
             this.bt_annuler_search = new System.Windows.Forms.Button();
+            this.tp_type = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cb_types = new System.Windows.Forms.ComboBox();
             this.tc_search.SuspendLayout();
             this.tp_nom.SuspendLayout();
             this.tp_sp.SuspendLayout();
+            this.tp_type.SuspendLayout();
             this.SuspendLayout();
             // 
             // tc_search
             // 
             this.tc_search.Controls.Add(this.tp_nom);
             this.tc_search.Controls.Add(this.tp_sp);
+            this.tc_search.Controls.Add(this.tp_type);
             this.tc_search.Location = new System.Drawing.Point(12, 12);
             this.tc_search.Name = "tc_search";
             this.tc_search.SelectedIndex = 0;
@@ -104,7 +109,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(56, 40);
+            this.label2.Location = new System.Drawing.Point(40, 40);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 16);
             this.label2.TabIndex = 1;
@@ -114,7 +119,7 @@
             // 
             this.cb_specialites.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cb_specialites.FormattingEnabled = true;
-            this.cb_specialites.Location = new System.Drawing.Point(156, 39);
+            this.cb_specialites.Location = new System.Drawing.Point(140, 39);
             this.cb_specialites.Name = "cb_specialites";
             this.cb_specialites.Size = new System.Drawing.Size(135, 21);
             this.cb_specialites.TabIndex = 0;
@@ -141,6 +146,37 @@
             this.bt_annuler_search.Text = "Annuler";
             this.bt_annuler_search.UseVisualStyleBackColor = true;
             // 
+            // tp_type
+            // 
+            this.tp_type.Controls.Add(this.cb_types);
+            this.tp_type.Controls.Add(this.label3);
+            this.tp_type.Location = new System.Drawing.Point(4, 22);
+            this.tp_type.Name = "tp_type";
+            this.tp_type.Size = new System.Drawing.Size(356, 101);
+            this.tp_type.TabIndex = 2;
+            this.tp_type.Text = "Type";
+            this.tp_type.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(61, 40);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(45, 16);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Type :";
+            // 
+            // cb_types
+            // 
+            this.cb_types.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_types.FormattingEnabled = true;
+            this.cb_types.Location = new System.Drawing.Point(140, 39);
+            this.cb_types.Name = "cb_types";
+            this.cb_types.Size = new System.Drawing.Size(135, 21);
+            this.cb_types.TabIndex = 3;
+            this.cb_types.SelectedIndexChanged += new System.EventHandler(this.cb_types_SelectedIndexChanged);
+            // 
             // SearchForm
             // 
             this.AcceptButton = this.bt_valider_search;
@@ -160,6 +196,8 @@
             this.tp_nom.PerformLayout();
             this.tp_sp.ResumeLayout(false);
             this.tp_sp.PerformLayout();
+            this.tp_type.ResumeLayout(false);
+            this.tp_type.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -175,5 +213,8 @@
         private System.Windows.Forms.ComboBox cb_specialites;
         private System.Windows.Forms.Button bt_valider_search;
         private System.Windows.Forms.Button bt_annuler_search;
+        private System.Windows.Forms.TabPage tp_type;
+        private System.Windows.Forms.ComboBox cb_types;
+        private System.Windows.Forms.Label label3;
     }
 }

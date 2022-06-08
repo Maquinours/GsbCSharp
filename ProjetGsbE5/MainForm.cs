@@ -49,10 +49,7 @@ namespace ProjetGsbE5
 
                                 foreach (DataGridViewRow dgvr in dgv_praticiens.Rows)
                                 {
-                                    if (dgvr.Cells[cln_nom.Index].Value.ToString().ToLower().Contains(textToSearch))
-                                        dgvr.Visible = true;
-                                    else
-                                        dgvr.Visible = false;
+                                    dgvr.Visible = dgvr.Cells[cln_nom.Index].Value.ToString().ToLower().Contains(textToSearch);
                                 }
                                 break;
                             }
@@ -66,10 +63,7 @@ namespace ProjetGsbE5
                                         HashSet<long> praticiensToSearch = DbDialog.GetPraticiensBySpecialite(specialiteToSearch);
                                         foreach (DataGridViewRow dgvr in dgv_praticiens.Rows)
                                         {
-                                            if (praticiensToSearch.Contains((long)dgvr.Cells[cln_id.Index].Value))
-                                                dgvr.Visible = true;
-                                            else
-                                                dgvr.Visible = false;
+                                            dgvr.Visible = praticiensToSearch.Contains((long)dgvr.Cells[cln_id.Index].Value);
                                         }
                                     }
                                     catch
@@ -77,6 +71,18 @@ namespace ProjetGsbE5
                                         MessageBox.Show("Erreur lors de la recherche de praticiens", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     }
                                 } catch { }
+                                break;
+                            }
+                        case SearchType.Type:
+                            {
+                                string typeToSearch = form.SearchTypePraticien;
+
+                                if (typeToSearch.Length == 0) return;
+
+                                foreach (DataGridViewRow dgvr in dgv_praticiens.Rows)
+                                {
+                                    dgvr.Visible = dgvr.Cells[cln_type.Index].Value.ToString() == typeToSearch;
+                                }
                                 break;
                             }
                     }
