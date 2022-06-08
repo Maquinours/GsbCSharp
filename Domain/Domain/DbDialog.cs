@@ -7,7 +7,7 @@ namespace Domain
 {
     public static class DbDialog
     {
-        private static MySqlConnection _conn = new MySqlConnection($"Server=localhost;Database=gsb;port=3306;User Id=usersio;password=sio");
+        private static MySqlConnection _conn = new MySqlConnection($"Server=172.30.32.100;Database=JL_gsbE5;port=3306;User Id=usersio;password=sio");
 
         /// <summary>
         /// Obtient le mot de passe et le sel d'un visiteur
